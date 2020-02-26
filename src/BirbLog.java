@@ -64,4 +64,9 @@ public class BirbLog {
         births.add(logMessage);
     }
 
+    public void clearLogs() {
+        deaths = new ArrayList<>();
+        births = new ArrayList<>();
+    }
+
 }

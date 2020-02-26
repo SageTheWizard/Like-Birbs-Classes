@@ -33,11 +33,23 @@ public class BirbNameGenerator {
                                 "Richardo",
                                 "Timeteo",
                                 "Victor",
-                                "Sulema"};
+                                "Sulema",
+                                "Ulfric",
+                                "Doom",
+                                "Varg",
+                                "Steve",
+                                "Charlie",
+                                "Dee",
+                                "Dennis",
+                                "Joe",
+                                "Patricia",
+                                "Robert",
+                                "James",
+                                "Donna"};
     }
 
     public String getRandomName() {
-        int randomNameIndex = (int) Math.random() * nameList.length;
+        int randomNameIndex = (int) (Math.random() * nameList.length);
         return nameList[randomNameIndex];
     }
 }

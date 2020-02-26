@@ -62,15 +62,20 @@ public class Enviorment {
         }
     }
 
-    public void rabbitsEat() {
+    public void birbsEat() {
+        // Vegetarian Birbs
+
+        // Carniverous Birbs
+
+        // Cannibal Birbs
 
     }
 
-    public void strongRabbitsTakeFood() {
+    public void strongBirbsTakeFood() {
 
     }
 
-    public void rabbitsStarve() {
+    public void birbsStarve() {
 
     }
 
@@ -78,32 +83,48 @@ public class Enviorment {
 
     }
 
-    public void rabbitsTemperature() {
+    public void birbsTemperature() {
 
     }
 
-    public void rabbitsDrown() {
+    public void birbsDrown() {
 
     }
 
     public boolean enoughToReproduce() {
-        return true;
+        return (birbs.size() > 1);
     }
 
-    public void rabbitsReproduce() {
+    public void birbsReproduce() {
 
     }
 
     public boolean allDead() {
-        return true;
+        return (birbs.size() == 0);
     }
 
-    public void rabbitShuffle() {
+    public void birbsShuffle() {
+        Birb tempBirb;
+        int swapIdx1;
+        int swapIdx2;
 
+        for (int i = 0; i < birbs.size(); i++) {
+
+            do {
+                swapIdx1 = (int) (Math.random() * birbs.size());
+                swapIdx2 = (int) (Math.random() * birbs.size());
+            } while (swapIdx1 == swapIdx2);
+
+            tempBirb = birbs.get(swapIdx1);
+            birbs.set(swapIdx1, birbs.get(swapIdx2));
+            birbs.set(swapIdx2, tempBirb);
+        }
     }
 
     public void increaseAliveTime() {
-
+        for (Birb birb : birbs) {
+            birb.incrementGenerationAlive();
+        }
     }
 
     public void /*Might need to be not void */ displayStats() {
@@ -115,7 +136,7 @@ public class Enviorment {
     }
 
     public void clearLogs() {
-
+        log.clearLogs();
     }
 
 
