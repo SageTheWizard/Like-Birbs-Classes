@@ -64,31 +64,76 @@ public class Enviorment {
 
     public void birbsEat() {
         // Vegetarian Birbs
+        int fastestIndx = 0;
+        int fastestSpeed = -1;
+        int counter = 0;
+        int tempVegAmount = this.vegFoodAmount;
+        int tempMeatAmount = this.meatFoodAmount;
+        boolean allEaten;
+        do {
+            allEaten = true;
+            for (Birb birb : birbs) {
+                if (birb.getSpeedDecimal() > fastestSpeed && !birb.isHasPlantFood() && !birb.isCarniverous()) {
+                    allEaten = false;
+                    fastestSpeed = birb.getSpeedDecimal();
+                    fastestIndx = counter;
+                }
+                counter++;
+            }
+
+            if (!allEaten) {
+                birbs.get(fastestIndx).setHasPlantFood(true);
+                tempVegAmount--;
+                fastestSpeed = -1;
+            }
+        } while (!allEaten && tempVegAmount != 0);
 
         // Carniverous Birbs
+        do {
+            allEaten = true;
+            for (Birb birb : birbs) {
+                if (birb.getSpeedDecimal() > fastestSpeed && !birb.isHasMeatFood() && birb.isCarniverous()) {
+                    allEaten = false;
+                    fastestSpeed = birb.getSpeedDecimal();
+                    fastestIndx = counter;
+                }
+                counter++;
+            }
+
+            if (!allEaten) {
+                birbs.get(fastestIndx).setHasMeatFood(true);
+                tempMeatAmount--;
+                fastestSpeed = -1;
+            }
+        } while (!allEaten && tempVegAmount != 0);
 
         // Cannibal Birbs
-
+        // TODO: Work out RNG Rolls
     }
 
     public void strongBirbsTakeFood() {
-
+        // TODO: Work out RNG Rolls
     }
 
     public void birbsStarve() {
-
+        for (Birb birb : birbs) {
+            if (!birb.isHasMeatFood() && !birb.isHasPlantFood()) {
+                log.addDeath(birb.getName(), 0, birb.getGenerationsAlive());
+                birbs.remove(birb);
+            }
+        }
     }
 
     public void predatorsEat() {
-
+        // TODO: Work out RNG Rolls
     }
 
     public void birbsTemperature() {
-
+        // TODO: Work out RNG Rolls
     }
 
     public void birbsDrown() {
-
+        // TODO: Work out RNG Rolls
     }
 
     public boolean enoughToReproduce() {
@@ -96,7 +141,10 @@ public class Enviorment {
     }
 
     public void birbsReproduce() {
-
+        int initBirbSize = birbs.size();
+        for (int i = 0; i < initBirbSize - 1; i++) {
+            birbs.add(new Birb(birbs.get(i), birbs.get(i+1)));
+        }
     }
 
     public boolean allDead() {

@@ -366,4 +366,6 @@ public class Birb {
     public int getSwimmingDecimal() {
         return swimmingDecimal;
     }
+
+    public String getName() {return name;}
 }
