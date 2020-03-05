@@ -1,5 +1,32 @@
 import java.util.ArrayList;
+/*
+     HOW RNG ROLLS WORK FOR ENVIORMENT - Jacob's RNG Magic 2.0
+        Birb Range will be from 0 -> 65,536 (because 16 bit integer)
+        Roll the possible range 0 - 99
+            [0 -> 49] 50% - Standard range Where X is the ideal
+                  (X - 5,000) < X < (X + 5000)
+            [50 -> 79] 30% - Super Range Where X is ideal
+                  (X - 8,000) < X < (X + 8000)
+            [80 -> 95] 15% - Mega Range Where X is ideal
+                  (X - 10,000) < X < (X + 10,000)
+            [95 -> 99] 5% - Super Ultra Mega Giga Kayak Range Where X is ideal
+                  (x - 15,000) < X < (X + 15,000)
 
+      HOW RNG ROLLS WILL WORK FOR FOOD RELATED BIRB ON BIRB VIOLENCE
+        Birb-AggressorStat - Birb-VictimState = X
+
+        if X <= 0 Aggressor Fails
+        if X > 0 Aggressor Rolls
+        Roll the possible range 0 - 99
+            [0 - 49] 50% - Standard
+                if X > 10,000 Success for Aggressor
+            [50 - 79] 30% - Super
+                if X > 8,000 Success for aggressor
+            [80 - 95] 15% - Mega
+                if X > 5000 Success for aggressor
+            [95 - 99] 5% - Super Ultra Mega Giga Kayak
+                if X > 1000 Success for Aggressor
+ */
 public class Enviorment {
     // Birb Population
     private ArrayList<Birb> birbs;
@@ -112,7 +139,66 @@ public class Enviorment {
     }
 
     public void strongBirbsTakeFood() {
-        // TODO: Work out RNG Rolls
+        int succRange = 0;
+        int birbStrengthDiff = 0;
+        for (Birb aggressor : birbs) {
+            for (Birb victim : birbs) {
+                if (aggressor != victim) {
+                    if ((victim.isHasPlantFood() && !aggressor.isCarniverous() && !aggressor.isHasPlantFood()) ||
+                        (victim.isHasMeatFood() && aggressor.isCarniverous() && !aggressor.isHasMeatFood())) {
+                        succRange = (int) (Math.random() * 100);
+                        birbStrengthDiff = aggressor.getStrengthDecimal() - victim.getStrengthDecimal();
+                        if (!(birbStrengthDiff < 1000)) {
+                            if (succRange <= 49 && birbStrengthDiff >= 10_000) {
+                                if (aggressor.isCarniverous()) {
+                                    victim.setHasMeatFood(false);
+                                    aggressor.setHasMeatFood(true);
+                                }
+                                else {
+                                    victim.setHasPlantFood(false);
+                                    aggressor.setHasPlantFood(true);
+                                }
+                                break;
+                            }
+                            else if (50 <= succRange && succRange <= 79 && birbStrengthDiff >= 8_000) {
+                                if (aggressor.isCarniverous()) {
+                                    victim.setHasMeatFood(false);
+                                    aggressor.setHasMeatFood(true);
+                                }
+                                else {
+                                    victim.setHasPlantFood(false);
+                                    aggressor.setHasPlantFood(true);
+                                }
+                                break;
+                            }
+                            else if (80 <= succRange && succRange <= 94 && birbStrengthDiff >= 5_000) {
+                                if (aggressor.isCarniverous()) {
+                                    victim.setHasMeatFood(false);
+                                    aggressor.setHasMeatFood(true);
+                                }
+                                else {
+                                    victim.setHasPlantFood(false);
+                                    aggressor.setHasPlantFood(true);
+                                }
+                                break;
+                            }
+                            else { // Super Mega Ultra Giga Kayak
+                                if (aggressor.isCarniverous()) {
+                                    victim.setHasMeatFood(false);
+                                    aggressor.setHasMeatFood(true);
+                                }
+                                else {
+                                    victim.setHasPlantFood(false);
+                                    aggressor.setHasPlantFood(true);
+                                }
+                                break;
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void birbsStarve() {
